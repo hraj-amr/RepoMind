@@ -1,0 +1,13 @@
+
+<svg width="500" height="120" viewBox="0 0 500 120" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="500" height="120" fill="white"/>
+
+  <!-- Purple circle overlapping 'Repo' -->
+  <circle cx="175" cy="60" r="50" fill="#9333EA"/>
+
+  <!-- Logo text -->
+  <text x="100" y="70" font-family="monospace" font-size="36" fill="#1F2937">
+    &lt; RepoMind /&gt;
+  </text>
+</svg>
