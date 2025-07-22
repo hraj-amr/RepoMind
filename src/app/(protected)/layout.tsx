@@ -2,7 +2,6 @@ import React from 'react';
 import { SidebarProvider } from '@/components/ui/sidebar'; 
 import { UserButton } from '@clerk/nextjs';
 import { AppSidebar } from './app-sidebar';
-import "./globals.css";
 
 type Props = {
   children: React.ReactNode;
