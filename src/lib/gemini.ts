@@ -43,11 +43,11 @@ export async function summariseCode(doc: Document){
     }
 }
 
-export async function generateEmbeddings(text: string){
+export async function generateEmbedding(text: string){
     const model = genAI.getGenerativeModel({
         model: "text-embedding-004"
     })
     const result = await model.embedContent(summary)
     const embedding = result.embedding
-    return generateEmbeddings.values
+    return generateEmbedding.values
 }
