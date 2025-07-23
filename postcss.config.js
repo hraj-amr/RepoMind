@@ -1,6 +1,7 @@
+import tailwindcss from "tailwindcss"
 export default {
   plugins: {
-    "@tailwindcss/postcss": {
+    "@tailwindcss": {
       content: [
         './app/**/*.{js,ts,jsx,tsx,mdx}',       // For App Router pages
         './src/**/*.{js,ts,jsx,tsx,mdx}',       // For components within src/
