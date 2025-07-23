@@ -7,6 +7,9 @@ import CommitLog from './commit-log';
 import { useUser } from '@clerk/nextjs'
 import AskQuestionCard from './ask-question-card';
 import MeetingCard from './meeting-card';
+import ArchiveButton from './archive-button';
+import InviteButton from './invite-button';
+import TeamMembers from './team-members';
 
 
 // Define the DashboardPage functional component
@@ -38,9 +41,9 @@ function DashboardPage() {
                 <div className='h-4'></div>
 
                 <div className='flex items-center gap-4'>
-                    TeamMembers
-                    InviteButton
-                    ArchiveButton
+                    <TeamMembers/>
+                    <InviteButton/>
+                    <ArchiveButton/>
                 </div>
 
 
