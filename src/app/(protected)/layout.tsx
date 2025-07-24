@@ -1,4 +1,5 @@
 import React from 'react';
+import "@/styles/globals.css";
 import { SidebarProvider } from '@/components/ui/sidebar'; 
 import { UserButton } from '@clerk/nextjs';
 import { AppSidebar } from './app-sidebar';

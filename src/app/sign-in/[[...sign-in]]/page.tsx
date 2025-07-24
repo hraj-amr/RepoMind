@@ -1,4 +1,4 @@
-import "./globals.css";
+import "@/styles/globals.css";
 import { SignIn } from '@clerk/nextjs'
 
 export default function Page() {

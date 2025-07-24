@@ -31,7 +31,7 @@ const CommitLog = () => {
                                 {commit.commitAuthorName}
                             </span> {" "}
                             <span className='inline-flex items-center'>
-                                commited
+                                committed
                                 <ExternalLink className='ml-1 size-4' />
                             </span>
                         </Link>
