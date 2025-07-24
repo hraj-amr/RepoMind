@@ -4,12 +4,18 @@ import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import useProject from '@/hooks/use-project'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { toast } from 'sonner'
 
 const InviteButton = () => {
     const {projectId} = useProject()
     const [open, setOpen] = React.useState(false)
+    const [inviteLink, setInviteLink] = React.useState('');
+     useEffect(() => {
+        if (typeof window !== 'undefined' && projectId) {
+            setInviteLink(`${window.location.origin}/join/${projectId}`);
+        }
+    }, [projectId]);
   return (
     <>
         <Dialog open={open} onOpenChange={setOpen}> 
@@ -24,10 +30,14 @@ const InviteButton = () => {
                 className='mt-4'
                 readOnly
                 onClick={() => {
-                    navigator.clipboard.writeText(`${window.location.origin}/join/${projectId}`)
-                    toast.success("copied to clipboard")
+                     if (typeof navigator !== 'undefined' && navigator.clipboard) {
+                                navigator.clipboard.writeText(inviteLink)
+                                toast.success("copied to clipboard")
+                            } else {
+                                toast.error("Clipboard access not available.")
+                            }
                 }}
-                value={`${window.location.origin}/join/${projectId}`}
+                value={inviteLink}
                 />
             </DialogContent>
         </Dialog>

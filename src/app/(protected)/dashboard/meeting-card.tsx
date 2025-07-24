@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button'
 import { api } from '@/trpc/react';
 import useProject from '@/hooks/use-project';
 import { toast } from 'sonner';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 

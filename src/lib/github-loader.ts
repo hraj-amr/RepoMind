@@ -1,6 +1,10 @@
+import { db } from '@/server/db'
 import { GithubRepoLoader } from '@langchain/community/document_loaders/web/github'
 import { Document } from '@langchain/core/documents'
-import { db } from '@langchain/db'
+import { generateEmbedding, summariseCode } from './gemini'
+
+
+
 
 export const loadGithubRepo = async (githubUrl: string, githubToken?: string) => {
     const loader = new GithubRepoLoader(githubUrl, {
@@ -16,10 +20,10 @@ export const loadGithubRepo = async (githubUrl: string, githubToken?: string) =>
 }
 
 
-export const indexGithubRepo = (projectId: string, githubUrl: string, githubToken?: string) => {
+export const indexGithubRepo = async (projectId: string, githubUrl: string, githubToken?: string) => {
     const docs = await loadGithubRepo(githubUrl, githubToken)
     const allEmbeddings = await generateEmbeddings(docs)
-    await Promise.allSettled(allEmbeddings.map((embedding, index) => {
+    await Promise.allSettled(allEmbeddings.map(async (embedding, index) => {
         console.log(`processing ${index} of ${allEmbeddings.length}`)
         if(!embedding) return
         const sourceCodeEmbedding = await db.sourceCodeEmbedding.create({
