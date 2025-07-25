@@ -6,22 +6,22 @@ const model = genAI.getGenerativeModel({
     model: 'gemini-1.5-flash'
 })
 
-export const aiSummariseCommit = async (diff: string): Promise<string> => {
-    try {
-        const prompt = `Summarize the following code commit diff in a concise, human-readable sentence or two. Focus on the main purpose or change introduced by the commit. The summary should be short (e.g., max 100 characters) and should not include markdown formatting.\n\nDiff:\n${diff}`;
-
-        const result = await model.generateContent([prompt]); // <--- Pass the prompt here
-        const response = await result.response;
-        const summary = response.text(); // Assuming .text() extracts the string summary
-
-        return summary.trim(); // <--- Return the generated summary
-
-    } catch (error) {
-        console.error("Error summarizing commit with Gemini AI:", error);
-        // Important: Always return a string, even if there's an error.
-        // This satisfies the Promise<string> return type.
-        return "Failed to generate AI summary.";
-    }
+export const aiSummariseCommit = async (diff: string) => {
+ const response = await model.generateContent([
+   `You are an expert software engineer and technical writer.`,
+        `Your task is to analyze the following Git commit diff and provide a clear, concise, and insightful summary.`,
+        `The summary should help a junior developer or new team member quickly understand the purpose and impact of the changes.`,
+        `Be specific about what was added, removed, or modified. Mention any new features, bug fixes, refactoring, or documentation updates.`,
+        `If relevant, explain why the changes were made and how they affect the overall project.`,
+        `Use simple language, avoid jargon, and keep the summary under 120 words.`,
+        `Format your response as a single paragraph.`,
+        `Here is the commit diff:`,
+        `---`,
+        `${diff}`,
+        `---`,
+        `Summary:`
+    ]);
+    return response.response.text();    
 }
 
 export async function summariseCode(doc: Document){
@@ -43,11 +43,11 @@ export async function summariseCode(doc: Document){
     }
 }
 
-export async function generateEmbedding(text: string){
+export async function generateEmbedding(summary: string){
     const model = genAI.getGenerativeModel({
         model: "text-embedding-004"
     })
     const result = await model.embedContent(summary)
     const embedding = result.embedding
-    return generateEmbedding.values
+    return embedding.values
 }

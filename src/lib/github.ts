@@ -17,15 +17,11 @@ type Response = {
 }
 
 export const getCommitHashes = async (githubUrl: string): Promise<Response[]> => {
-    const [owner, repo] = githubUrl.split('/').slice(-2)
-    if(!owner || !repo) {
-        throw new Error('Invalid GitHub URL')
-    }
-    const {data} = await octokit.rest.repos.listCommits({
-        owner,
-        repo
+    const { data } = await octokit.rest.repos.listCommits({
+        owner: "docker",
+        repo: 'genai-stack'
     })
-    const sortedCommits = data.sort((a: any, b: any) => new Date(b.commit.author.date).getTime() - new Date(a.commit.author.date).getTime())
+    const sortedCommits = data.sort((a: any, b: any) => new Date(b.commit.author.date).getTime() - new Date(a.commit.author.date).getTime()) as any[]
 
     return sortedCommits.slice(0,15).map((commit: any) => ({
         commitHash: commit.sha as string,
@@ -36,7 +32,13 @@ export const getCommitHashes = async (githubUrl: string): Promise<Response[]> =>
     }))
 
 }
-
+(async () => {
+    try {
+        console.log(await getCommitHashes(githubUrl));
+    } catch (error) {
+        console.error("An error occurred:", error);
+    }
+})();
 
 export const pollCommits = async(projectId: string) => {
     const {project, githubUrl } = await fetchProjectGithubUrl(projectId)
