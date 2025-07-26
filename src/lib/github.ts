@@ -84,9 +84,7 @@ async function summariseCommit(githubUrl: string, commitHash: string) {
 async function fetchProjectGithubUrl(projectId: string) {
     const project = await db.project.findUnique({
         where: {id: projectId},
-        select: {
-            githubUrl: true
-        }
+        select: { githubUrl: true }
     })
     if(!project?. githubUrl){
         throw new Error("Project has no github url")

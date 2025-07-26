@@ -16,38 +16,26 @@ type FormInput = {
     githubToken?: string; // Optional GitHub token
 };
 
-// Define the CreatePage functional component
-const CreatePage = () => { // Corrected function declaration syntax
-    // Initialize react-hook-form for form management
+
+const CreatePage = () => { 
     const { register, handleSubmit, reset } = useForm<FormInput>();
-
-    // Initialize the tRPC mutation for creating a project
     const createProject = api.project.createProject.useMutation();
-
-    // Initialize the custom refetch hook (assuming it triggers data revalidation)
     const refetch = useRefetch();
-
-    // Function to handle form submission
     function onSubmit(data: FormInput) {
-        // Call the tRPC mutation with the form data
         createProject.mutate({
             githubUrl: data.repoUrl,
             name: data.projectName,
             githubToken: data.githubToken
         }, {
-            // Callback for successful project creation
             onSuccess: () => {
-                toast.success('Project created successfully'); // Show success toast
-                refetch(); // Trigger data refetch
-                reset(); // Reset the form fields
+                toast.success('Project created successfully'); 
+                refetch(); 
+                reset(); 
             },
-            // Callback for failed project creation
             onError: () => {
-                toast.error('Failed to create project'); // Show error toast
+                toast.error('Failed to create project');
             }
         });
-        // It's generally not necessary to return true from onSubmit for react-hook-form,
-        // as it handles submission state internally.
         return true;
     }
 
