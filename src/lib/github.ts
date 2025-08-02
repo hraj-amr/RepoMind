@@ -2,10 +2,11 @@ import { db } from '@/server/db';
 import  axios from 'axios';
 import { Octokit } from 'octokit';
 import { aiSummariseCommit } from './gemini';
+import { env } from '@/env';
 
 
 export const octokit = new Octokit({
-    auth: process.env.GITHUB_TOKEN,
+    auth: env.GITHUB_TOKEN,
 })
 
 const githubUrl = 'https://github.com/docker/genai-stack'
